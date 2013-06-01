@@ -7,20 +7,19 @@
 <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 <body>
-	<div>
-<form name="myForm" id="myForm" action="">
-<table>
-	<tr>
-	<td>Offline Image Catalouge</td>
-	</tr>
-	<tr>
-	<td><input type="text" align="left" name="searchme" id="searchme" value= "Search" /></td>
-	<td><input type="submit" name="Submit" onclick="searchIndex(); return false;" value="Go" /></td>
-	</tr>
-	</table>
-	</form>
-</div>
-	<div id="resultshere">
-</div>
+<div id="mainWrap">
+	<div id="header">
+    	<div id="logo"></div>
+        <div id="divider"></div>
+        <div id="title">Offline Image Catalog</div>
+    </div>
+	<div id="form">
+    	<form name="myForm" id="myForm" action="">
+    		<input name="searchme" type="text" id="searchme" value="Search" size="30" align="left"/>
+        	<input type="submit" name="Submit" onclick="searchIndex(); return false;" value="Go" />
+    	</form>
+	</div>
+    <div id="resultshere"></div>
+    </div>
 </body>
 </html>

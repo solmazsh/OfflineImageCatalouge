@@ -6,6 +6,7 @@ function loadIndex() { // load indexfile
 		xmlDoc = document.implementation.createDocument("", "", null);
 		xmlDoc.load("index.xml");
 	}
+    
 // MSIE uses ActiveX
 	else if (window.ActiveXObject) {
 		xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
