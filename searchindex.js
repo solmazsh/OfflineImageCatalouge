@@ -4,14 +4,14 @@ function loadIndex() { // load indexfile
 // most current browsers support document.implementation
 	if (document.implementation && document.implementation.createDocument) {
 		xmlDoc = document.implementation.createDocument("", "", null);
-		xmlDoc.load("index.xml");
+		xmlDoc.load("sample.xml");
 	}
     
 // MSIE uses ActiveX
 	else if (window.ActiveXObject) {
 		xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
 		xmlDoc.async = "false";
-		xmlDoc.load("index.xml");
+		xmlDoc.load("sample.xml");
 	}
 }
 
@@ -23,7 +23,8 @@ function searchIndex() {
 	// get the search term from a form field with id 'searchme'
 
 	var searchterm = document.getElementById("searchme").value;
-	var allitems = xmlDoc.getElementsByTagName("item");
+	var allitems = xmlDoc.getElementsByTagName("filename");
+    
 	results = new Array;
 	if (searchterm.length < 3) {
 		alert("Enter at least three characters");
