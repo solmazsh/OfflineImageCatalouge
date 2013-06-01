@@ -8,6 +8,7 @@ import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,9 +42,10 @@ public class ItemEntry extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
 		JMenuItem openMenuItem = new JMenuItem("Open");
+	
 
 		// panel
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		JPanel panel = new JPanel(new FlowLayout());
 		this.add(panel);
 
 		// menu
@@ -55,16 +57,24 @@ public class ItemEntry extends JFrame implements ActionListener {
 		// labels
 		JLabel nameLabel = new JLabel("Name: ");
 		JLabel tagLabel = new JLabel("Tags: ");
+		JLabel pictureLabel = new JLabel("Picture: ");
 
 		// text fields
 		JTextField nameField = new JTextField(25);
 		JTextField tagField = new JTextField(25);
+		JTextField pictureField = new JTextField(25);
+		
+		//buttons
+		JButton browseButton = new JButton("Browse");
 
 		// add components
 		panel.add(nameLabel);
 		panel.add(nameField);
 		panel.add(tagLabel);
 		panel.add(tagField);
+		panel.add(pictureLabel);
+		panel.add(pictureField);
+		panel.add(browseButton);
 
 		// frame properties
 		this.setJMenuBar(menuBar);
