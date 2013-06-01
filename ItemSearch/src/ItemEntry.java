@@ -1,14 +1,23 @@
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -24,34 +33,38 @@ public class ItemEntry extends JFrame implements ActionListener {
 	File xmlFile = null;
 
 	public static void main(String args[]) {
-		ItemEntry program = new ItemEntry();
-		program.setLook();
-	}
-
-	public void setLook() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (UnsupportedLookAndFeelException e) {
-		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
-		} catch (IllegalAccessException e) {
-		}
+		new ItemEntry();
 	}
 
 	ItemEntry() {
+		// menu
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
 		JMenuItem openMenuItem = new JMenuItem("Open");
 
-		// layout
-		Container contentPane = this.getContentPane();
-		contentPane.setLayout(new FlowLayout());
+		// panel
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		this.add(panel);
 
 		// menu
 		openMenuItem.setName("open");
 		openMenuItem.addActionListener(this);
 		menu.add(openMenuItem);
 		menuBar.add(menu);
+
+		// labels
+		JLabel nameLabel = new JLabel("Name: ");
+		JLabel tagLabel = new JLabel("Tags: ");
+
+		// text fields
+		JTextField nameField = new JTextField(25);
+		JTextField tagField = new JTextField(25);
+
+		// add components
+		panel.add(nameLabel);
+		panel.add(nameField);
+		panel.add(tagLabel);
+		panel.add(tagField);
 
 		// frame properties
 		this.setJMenuBar(menuBar);
