@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -93,6 +94,14 @@ public class ItemEntry extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
+	private void parseTags() {
+		String tagText = tagField.getText();
+		String tags[] = tagText.split(",");
+		for (int i = 0; i < tags.length; i++) {
+			System.out.println(tags[i]);
+		}
+	}
+
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() instanceof JMenuItem) {
 			JMenuItem menuItem = (JMenuItem) event.getSource();
@@ -103,6 +112,10 @@ public class ItemEntry extends JFrame implements ActionListener {
 					xmlFile = fileChooser.getSelectedFile();
 					fileLoaded = true;
 					this.setTitle(appName + " - " + xmlFile.getAbsolutePath());
+				} else {
+					fileLoaded = false;
+					xmlFile = null;
+					this.setTitle(appName);
 				}
 			}
 		}
@@ -115,9 +128,19 @@ public class ItemEntry extends JFrame implements ActionListener {
 					pictureFile = fileChooser.getSelectedFile();
 					picLoaded = true;
 					pictureField.setText(pictureFile.getAbsolutePath());
+				} else {
+					picLoaded = false;
+					pictureFile = null;
+					pictureField.setText(null);
 				}
-			}else if(button.getName() == "submit"){
-				//submit
+			} else if (button.getName() == "submit") {
+				parseTags();
+				if (picLoaded && fileLoaded) {
+
+				} else {
+					JOptionPane.showMessageDialog(null, null, "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
