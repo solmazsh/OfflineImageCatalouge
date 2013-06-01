@@ -1,13 +1,8 @@
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,10 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class ItemEntry extends JFrame implements ActionListener {
 
@@ -42,7 +33,6 @@ public class ItemEntry extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
 		JMenuItem openMenuItem = new JMenuItem("Open");
-	
 
 		// panel
 		JPanel panel = new JPanel(new FlowLayout());
@@ -63,8 +53,8 @@ public class ItemEntry extends JFrame implements ActionListener {
 		JTextField nameField = new JTextField(25);
 		JTextField tagField = new JTextField(25);
 		JTextField pictureField = new JTextField(25);
-		
-		//buttons
+
+		// buttons
 		JButton browseButton = new JButton("Browse");
 
 		// add components
