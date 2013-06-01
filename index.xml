@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<searchable_index>
-	<item>John</item>
-	<item>Paul</item>
-	<item>George</item>
-	<item>Ringo</item>
-</searchable_index>
+<root>
+   <filename uid="31" filename="./apple.jpg" name="apple">
+     <attribute>red</attribute>
+     <attribute>fruit</attribute>
+     <attribute>food</attribute>
+   </filename>
+   <filename uid="4141" filename="./hammer.jpg" name="hammer">
+     <attribute>mallet</attribute>
+     <attribute>construction</attribute>
+     <attribute>bludgeon</attribute>
+   </filename>
+</root>
