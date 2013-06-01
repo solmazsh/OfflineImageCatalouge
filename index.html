@@ -3,22 +3,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Home</title>
-<script type="text/javascript" src="imageload.js">
+<script type="text/javascript" src="searchindex.js">
 	</script>
-<link rel="stylesheet" type="text/css" href="imagestyle.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 <body>
 	<div>
-<form name="myForm" id="myForm" method="post">
+<form name="myForm" id="myForm" action="">
 <table width="600" border= "1" cellspacing= "4" cellpadding = "4">
-	<table>
 	<tr>
 	<td>Offline Image Catalouge</td>
 	</tr>
 	<tr>
-	<td><input type="text" align="left" name="search" id="search" value= "Search" /></td>
-	<td><input type="submit" name="Submit" value="Go" /></td>
+	<td><input type="text" align="left" name="searchme" id="searchme" value= "Search" /></td>
+	<td><input type="submit" name="Submit" onclick="searchIndex(); return false;" value="Go" /></td>
 	</tr>
+<tr>
+<div id="resultshere">
+</tr>
 	</table>
 	</form>
 </div>
