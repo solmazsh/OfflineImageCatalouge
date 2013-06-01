@@ -20,22 +20,41 @@ public class ItemEntry extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = -1369810694073517702L;
 
+	// states
 	static boolean fileLoaded = false;
+	static boolean picLoaded = false;
+
+	// app name
 	static String appName = "ItemEntry";
+
+	// files
 	File xmlFile = null;
+	File pictureFile = null;
+
+	// menu
+	JMenuBar menuBar = new JMenuBar();
+	JMenu menu = new JMenu("File");
+	JMenuItem openMenuItem = new JMenuItem("Open");
+
+	// panel
+	JPanel panel = new JPanel(new FlowLayout());
+
+	// labels
+	JLabel nameLabel = new JLabel("Name: ");
+	JLabel tagLabel = new JLabel("Tags: ");
+	JLabel pictureLabel = new JLabel("Picture: ");
+
+	// text fields
+	JTextField nameField = new JTextField(47);
+	JTextField tagField = new JTextField(47);
+	JTextField pictureField = new JTextField(40);
 
 	public static void main(String args[]) {
 		new ItemEntry();
 	}
 
 	ItemEntry() {
-		// menu
-		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu("File");
-		JMenuItem openMenuItem = new JMenuItem("Open");
 
-		// panel
-		JPanel panel = new JPanel(new FlowLayout());
 		this.add(panel);
 
 		// menu
@@ -44,18 +63,15 @@ public class ItemEntry extends JFrame implements ActionListener {
 		menu.add(openMenuItem);
 		menuBar.add(menu);
 
-		// labels
-		JLabel nameLabel = new JLabel("Name: ");
-		JLabel tagLabel = new JLabel("Tags: ");
-		JLabel pictureLabel = new JLabel("Picture: ");
-
-		// text fields
-		JTextField nameField = new JTextField(25);
-		JTextField tagField = new JTextField(25);
-		JTextField pictureField = new JTextField(25);
-
 		// buttons
 		JButton browseButton = new JButton("Browse");
+		browseButton.setName("browse");
+		JButton submitButton = new JButton("Submit");
+		submitButton.setName("submit");
+
+		// listener register
+		browseButton.addActionListener(this);
+		submitButton.addActionListener(this);
 
 		// add components
 		panel.add(nameLabel);
@@ -65,17 +81,18 @@ public class ItemEntry extends JFrame implements ActionListener {
 		panel.add(pictureLabel);
 		panel.add(pictureField);
 		panel.add(browseButton);
+		panel.add(submitButton);
 
 		// frame properties
 		this.setJMenuBar(menuBar);
 		this.setSize(600, 400);
 		this.setLocationRelativeTo(null);
 		this.setTitle(appName);
+		this.setResizable(false);
 
 		setVisible(true);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() instanceof JMenuItem) {
 			JMenuItem menuItem = (JMenuItem) event.getSource();
@@ -87,6 +104,20 @@ public class ItemEntry extends JFrame implements ActionListener {
 					fileLoaded = true;
 					this.setTitle(appName + " - " + xmlFile.getAbsolutePath());
 				}
+			}
+		}
+		if (event.getSource() instanceof JButton) {
+			JButton button = (JButton) event.getSource();
+			if (button.getName() == "browse") {
+				JFileChooser fileChooser = new JFileChooser();
+				int returnVal = fileChooser.showOpenDialog(this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					pictureFile = fileChooser.getSelectedFile();
+					picLoaded = true;
+					pictureField.setText(pictureFile.getAbsolutePath());
+				}
+			}else if(button.getName() == "submit"){
+				//submit
 			}
 		}
 	}
