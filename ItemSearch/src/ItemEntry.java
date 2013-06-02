@@ -1,7 +1,9 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale.Category;
@@ -217,7 +219,7 @@ public class ItemEntry extends JFrame implements ActionListener {
 						String baseImgDir = xmlFile.getParentFile()+"/img/";
 						String[] extension = pictureFile.getName().split("\\.");
 						String uid = nextUID();
-						File tmpFile = new File(uid+"."+extension[extension.length-1]);
+						File tmpFile = new File(baseImgDir+ uid+"."+extension[extension.length-1]);
 						pictureFile.renameTo(tmpFile);
 						System.out.println("Writing file!!\n");
 						writeItem(uid, tags, catalogueIdField.getText(),
