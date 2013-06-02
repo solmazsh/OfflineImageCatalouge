@@ -1,15 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
-   <filename uid="31" name="001">
-     <attribute>apple</attribute>
-     <description>red</description>
-     <category>fruit</category>
-     <use>food</use>
-   </filename>
-   <filename uid="4141" name="002" attribute="hammer" description="mallet" category="construction" use="bludgeon">
-   	 <attribute>hammer</attribute>
-     <description>mallet</description>
-     <category>construction</category>
-     <use>bludgeon</use>
-   </filename>
+  <filename uid="testChain" filename="testChain.jpg" name="551515">
+    <attribute>chain</attribute>
+    <attribute>2chainz</attribute>
+    <attribute>link</attribute>
+  </filename>
 </root>
+
