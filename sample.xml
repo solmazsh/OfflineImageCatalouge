@@ -2,14 +2,14 @@
 <root>
    <filename uid="31" name="001">
      <attribute>apple</attribute>
-     <attribute>red</attribute>
-     <attribute>fruit</attribute>
-     <attribute>food</attribute>
+     <description>red</description>
+     <category>fruit</category>
+     <use>food</use>
    </filename>
-   <filename uid="4141" name="002">
+   <filename uid="4141" name="002" attribute="hammer" description="mallet" category="construction" use="bludgeon">
    	 <attribute>hammer</attribute>
-     <attribute>mallet</attribute>
-     <attribute>construction</attribute>
-     <attribute>bludgeon</attribute>
+     <description>mallet</description>
+     <category>construction</category>
+     <use>bludgeon</use>
    </filename>
 </root>
