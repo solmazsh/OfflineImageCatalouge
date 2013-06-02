@@ -36,16 +36,24 @@ function searchIndex()
 	{
 	// see if the XML entry matches the search term,
 	// and (if so) store it in an array
+		var lName = allitems[i].getAttribute("name");
+		var exp = new RegExp(searchterm,"i");
+			if ( lName.match(exp) != null)
+			{
+				results.push(allitems[i]);
+				continue;
+			}
+		
 		var lChildren = allitems[i].getElementsByTagName("attribute");
-		for (var j=0;j<=lChildren.length;j++)
+		for (var j=0;j<lChildren.length;j++)
 		{
 			var name = lChildren[j].childNodes[0].nodeValue;
 			var exp = new RegExp(searchterm,"i");
 			if ( name.match(exp) != null)
 			{
 				results.push(allitems[i]);
+				break;
 			}
-			break;
 		}
 	}
 	// send the results to another function that displays them to the user
@@ -57,24 +65,36 @@ function searchIndex()
 // could handle the search results
 function showResults(results, searchterm)
 {
-	if (results.length > 0) {
-// if there are any results, put them in a list inside the "resultshere" div
-		var resultshere = document.getElementById("resultshere");
-		var header = document.createElement("h5");
-		var list = document.createElement("ul");
-		var searchedfor = document.createTextNode("You've searched for "+searchterm);
-		resultshere.appendChild(header);
-		header.appendChild(searchedfor);
-		resultshere.appendChild(list);
-		for (var i=0;i<results.length;i++) {
-			var listitem = document.createElement("li");
-			var item = document.createTextNode(results[i].getAttribute("name"));
-			list.appendChild(listitem);
-			listitem.appendChild(item);
+	var resultshere = document.getElementById("resultshere");
+	resultshere.innerHTML = '';
+	if (results.length > 0)
+	{	
+		for(var i=0; i<results.length; i++)
+		{
+			var box = document.createElement("div");
+			box.className = "resultBox";
+			resultshere.appendChild(box);
+			var node = results[i].getElementsByTagName("attribute");
+			var nodeName = document.createTextNode("Catalog ID: "+results[i].getAttribute("name"));
+			box.appendChild(nodeName);
+			var img = document.createElement("img");
+			img.className = "imgBox";
+			img.src = "img/" + results[i].getAttribute("filename");
+			box.appendChild(img);
+			var list = document.createElement("ul");
+			for (var j=0; j<node.length; j++)
+			{
+				var listItem = document.createElement("li");
+				var li = document.createTextNode(node[j].childNodes[0].nodeValue);
+				list.appendChild(listItem);
+				listItem.appendChild(li);
+			}
+			box.appendChild(list);
 		}
-	} else {
-// else tell the user no matches were found
-		var resultshere = document.getElementById("resultshere");
+	}
+	else
+	{
+	// else tell the user no matches were found
 		var para = document.createElement("p");
 		var notfound = document.createTextNode("Sorry, I couldn't find anything like "+searchterm +"!");
 		resultshere.appendChild(para);
