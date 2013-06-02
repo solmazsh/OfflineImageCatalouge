@@ -55,8 +55,8 @@ function searchIndex()
 
 // The following is just an example of how you
 // could handle the search results
-function showResults(results, searchterm) {
-
+function showResults(results, searchterm)
+{
 	if (results.length > 0) {
 // if there are any results, put them in a list inside the "resultshere" div
 		var resultshere = document.getElementById("resultshere");
