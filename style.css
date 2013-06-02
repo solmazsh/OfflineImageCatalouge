@@ -65,9 +65,9 @@ html, body{
 }
 
 .imgBox{
+	width: 330px;
 	height: 330px;
 	margin-top: 5px;
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-color: red;
 }
