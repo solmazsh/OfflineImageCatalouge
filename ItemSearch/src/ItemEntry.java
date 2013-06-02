@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale.Category;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -15,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -57,9 +59,11 @@ public class ItemEntry extends JFrame implements ActionListener {
 
 	// text fields
 	JTextField nameField = new JTextField(47);
-	JTextField catalogueIdField = new JTextField(47);
+	JTextField catalogueIdField = new JTextField(42);
 	JTextField tagField = new JTextField(47);
 	JTextField pictureField = new JTextField(40);
+	
+	String destinationFile = null;
 
 	public static void main(String args[]) throws JDOMException, IOException {
 		new ItemEntry();
@@ -70,7 +74,7 @@ public class ItemEntry extends JFrame implements ActionListener {
 		// writeItem("testID", strings, "fakecategoryid", file);
 	}
 
-	private static void writeItem(String uId, String[] tags,
+	private void writeItem(String uId, String[] tags,
 			String catalogueId, File xmlFile) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Document document = (Document) builder.build(xmlFile);
@@ -78,7 +82,9 @@ public class ItemEntry extends JFrame implements ActionListener {
 		System.out.println(rootNode.getName());
 		Element fileName = new Element("filename");
 		fileName.setAttribute("uid", uId);
-		fileName.setAttribute("filename", "./" + uId + ".jpg");
+		String[] extension = pictureFile.getName().split("\\.");
+		fileName.setAttribute("filename", uId + "." + extension[extension.length-1]);
+		destinationFile = uId+extension[extension.length-1];
 		fileName.setAttribute("name", catalogueId);
 		for (int i = 0; i < tags.length; i++) {
 			Element attribute = new Element("attribute");
@@ -144,6 +150,30 @@ public class ItemEntry extends JFrame implements ActionListener {
 		}
 		return tags;
 	}
+	
+	public String nextUID()
+	{
+		Integer currentNum = -1;
+		try
+		{
+			String seqNum;
+			BufferedReader seq = new BufferedReader(new FileReader(".\\settings\\sequence"));
+			seqNum = seq.readLine();
+			seq.close();
+			
+			if (seqNum != null)
+			{
+				currentNum = Integer.parseInt(seqNum);
+				FileWriter seqOut = new FileWriter(".\\settings\\sequence");
+				seqOut.write(String.valueOf(currentNum+1));
+				seqOut.close();
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return currentNum.toString();
+	}
 
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() instanceof JMenuItem) {
@@ -166,6 +196,10 @@ public class ItemEntry extends JFrame implements ActionListener {
 			JButton button = (JButton) event.getSource();
 			if (button.getName() == "browse") {
 				JFileChooser fileChooser = new JFileChooser();
+				 FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					        "JPG & GIF Images", "jpg", "gif");
+				 fileChooser.setFileFilter(filter);
+
 				int returnVal = fileChooser.showOpenDialog(this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					pictureFile = fileChooser.getSelectedFile();
@@ -180,8 +214,13 @@ public class ItemEntry extends JFrame implements ActionListener {
 				String tags[] = parseTags();
 				if (picLoaded && fileLoaded) {
 					try {
-						System.out.println("Writing fiel!!\n");
-						writeItem(nameField.getText(), tags, "asdf",
+						String baseImgDir = xmlFile.getParentFile()+"/img/";
+						String[] extension = pictureFile.getName().split("\\.");
+						String uid = nextUID();
+						File tmpFile = new File(uid+"."+extension[extension.length-1]);
+						pictureFile.renameTo(tmpFile);
+						System.out.println("Writing file!!\n");
+						writeItem(uid, tags, catalogueIdField.getText(),
 								xmlFile);
 					} catch (Exception e) {
 						e.printStackTrace();

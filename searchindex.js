@@ -15,15 +15,14 @@ function loadIndex()
 	xmlDoc=xmlhttp.responseXML;
 }
 
-
 function searchIndex()
 {
 	if (!xmlDoc)
 	{
 		loadIndex();
 	}
+    
 	// get the search term from a form field with id 'searchme'
-
 	var searchterm = document.getElementById("searchme").value;
 	if (searchterm.length < 3)
 	{
@@ -34,22 +33,22 @@ function searchIndex()
 	results = new Array;
 	for (var i=0; i<allitems.length; i++)
 	{
-	// see if the XML entry matches the search term,
-	// and (if so) store it in an array
+		// see if the XML entry matches the search term,
+		// and (if so) store it in an array
 		var lName = allitems[i].getAttribute("name");
 		var exp = new RegExp(searchterm,"i");
-			if ( lName.match(exp) != null)
-			{
-				results.push(allitems[i]);
-				continue;
-			}
+		if (lName.match(exp) != null)
+		{
+			results.push(allitems[i]);
+			continue;
+		}
 		
 		var lChildren = allitems[i].getElementsByTagName("attribute");
 		for (var j=0;j<lChildren.length;j++)
 		{
-			var name = lChildren[j].childNodes[0].nodeValue;
+			var attName = lChildren[j].childNodes[0].nodeValue;
 			var exp = new RegExp(searchterm,"i");
-			if ( name.match(exp) != null)
+			if (attName.match(exp) != null)
 			{
 				results.push(allitems[i]);
 				break;
@@ -57,12 +56,10 @@ function searchIndex()
 		}
 	}
 	// send the results to another function that displays them to the user
-		showResults(results, searchterm);
+	showResults(results, searchterm);
 }
 
-
-// The following is just an example of how you
-// could handle the search results
+// The following is just an example of how you could handle the search results
 function showResults(results, searchterm)
 {
 	var resultshere = document.getElementById("resultshere");

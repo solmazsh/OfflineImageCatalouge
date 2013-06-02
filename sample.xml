@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
-   <filename uid="31" name="001">
-     <attribute>apple</attribute>
-     <attribute>red</attribute>
-     <attribute>fruit</attribute>
-     <attribute>food</attribute>
-   </filename>
-   <filename uid="4141" name="002">
-   	 <attribute>hammer</attribute>
-     <attribute>mallet</attribute>
-     <attribute>construction</attribute>
-     <attribute>bludgeon</attribute>
-   </filename>
+  <filename uid="testChain" filename="testChain.jpg" name="551515">
+    <attribute>chain</attribute>
+    <attribute>2chainz</attribute>
+    <attribute>link</attribute>
+  </filename>
+  <filename uid="tesssst" filename="tesssst.jpg" name="13131">
+    <attribute>hi</attribute>
+    <attribute>hi2</attribute>
+    <attribute>hello</attribute>
+  </filename>
+  <filename uid="tsssttv" filename="tsssttv.jpg" name="31313">
+    <attribute>tes</attribute>
+    <attribute>tag</attribute>
+  </filename>
 </root>
+
