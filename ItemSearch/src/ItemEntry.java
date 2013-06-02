@@ -60,8 +60,8 @@ public class ItemEntry extends JFrame implements ActionListener {
 	JLabel pictureLabel = new JLabel("Picture: ");
 
 	// text fields
-	JTextField nameField = new JTextField(47);
-	JTextField catalogueIdField = new JTextField(42);
+	JTextField nameField = new JTextField(55);
+	JTextField catalogueIdField = new JTextField(45);
 	JTextField tagField = new JTextField(47);
 	JTextField pictureField = new JTextField(40);
 	
@@ -123,8 +123,8 @@ public class ItemEntry extends JFrame implements ActionListener {
 		submitButton.addActionListener(this);
 
 		// add components
-		panel.add(nameLabel);
-		panel.add(nameField);
+		//panel.add(nameLabel);
+		//panel.add(nameField);
 		panel.add(catalogueIdLabel);
 		panel.add(catalogueIdField);
 		panel.add(tagLabel);
@@ -159,14 +159,14 @@ public class ItemEntry extends JFrame implements ActionListener {
 		try
 		{
 			String seqNum;
-			BufferedReader seq = new BufferedReader(new FileReader(".\\settings\\sequence"));
+			BufferedReader seq = new BufferedReader(new FileReader(xmlFile.getParentFile() + "/ItemSearchSettings/sequence"));
 			seqNum = seq.readLine();
 			seq.close();
 			
 			if (seqNum != null)
 			{
 				currentNum = Integer.parseInt(seqNum);
-				FileWriter seqOut = new FileWriter(".\\settings\\sequence");
+				FileWriter seqOut = new FileWriter(xmlFile.getParentFile() + "/ItemSearchSettings/sequence");
 				seqOut.write(String.valueOf(currentNum+1));
 				seqOut.close();
 			}
@@ -228,7 +228,7 @@ public class ItemEntry extends JFrame implements ActionListener {
 						e.printStackTrace();
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, null, "Error",
+					JOptionPane.showMessageDialog(null, "Select an XML database file.", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
