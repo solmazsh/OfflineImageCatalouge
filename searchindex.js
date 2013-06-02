@@ -1,45 +1,55 @@
 window.onload = loadIndex;
 
-function loadIndex() { // load indexfile
-// most current browsers support document.implementation
-	if (document.implementation && document.implementation.createDocument) {
-		xmlDoc = document.implementation.createDocument("", "", null);
-		xmlDoc.load("index.xml");
-	}
-    
-// MSIE uses ActiveX
-	else if (window.ActiveXObject) {
-		xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-		xmlDoc.async = "false";
-		xmlDoc.load("index.xml");
-	}
+function loadIndex()
+{
+	if (window.XMLHttpRequest)
+  	{// code for IE7+, Firefox, Chrome, Opera, Safari
+  		xmlhttp=new XMLHttpRequest();
+  	}
+	else
+  	{// code for IE6, IE5
+  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}
+	xmlhttp.open("GET","sample.xml",false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
 }
 
 
-function searchIndex() {
-	if (!xmlDoc) {
+function searchIndex()
+{
+	if (!xmlDoc)
+	{
 		loadIndex();
 	}
 	// get the search term from a form field with id 'searchme'
 
 	var searchterm = document.getElementById("searchme").value;
-	var allitems = xmlDoc.getElementsByTagName("item");
-	results = new Array;
-	if (searchterm.length < 3) {
+	if (searchterm.length < 3)
+	{
 		alert("Enter at least three characters");
-	} else {
-		for (var i=0;i<allitems.length;i++) {
-// see if the XML entry matches the search term,
-// and (if so) store it in an array
-			var name = allitems[i].lastChild.nodeValue;
+	}
+	
+	var allitems = xmlDoc.getElementsByTagName("filename");
+	results = new Array;
+	for (var i=0; i<allitems.length; i++)
+	{
+	// see if the XML entry matches the search term,
+	// and (if so) store it in an array
+		var lChildren = allitems[i].getElementsByTagName("attribute");
+		for (var j=0;j<=lChildren.length;j++)
+		{
+			var name = lChildren[j].childNodes[0].nodeValue;
 			var exp = new RegExp(searchterm,"i");
-			if ( name.match(exp) != null) {
+			if ( name.match(exp) != null)
+			{
 				results.push(allitems[i]);
 			}
+			break;
 		}
-// send the results to another function that displays them to the user
-	showResults(results, searchterm);
 	}
+	// send the results to another function that displays them to the user
+		showResults(results, searchterm);
 }
 
 
@@ -58,7 +68,7 @@ function showResults(results, searchterm) {
 		resultshere.appendChild(list);
 		for (var i=0;i<results.length;i++) {
 			var listitem = document.createElement("li");
-			var item = document.createTextNode(results[i].lastChild.nodeValue);
+			var item = document.createTextNode(results[i].getAttribute("name"));
 			list.appendChild(listitem);
 			listitem.appendChild(item);
 		}

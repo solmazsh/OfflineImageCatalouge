@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-   <filename uid="31" filename="./apple.jpg" name="apple">
+   <filename uid="31" name="001">
+     <attribute>apple</attribute>
      <attribute>red</attribute>
      <attribute>fruit</attribute>
      <attribute>food</attribute>
    </filename>
-   <filename uid="4141" filename="./hammer.jpg" name="hammer">
+   <filename uid="4141" name="002">
+   	 <attribute>hammer</attribute>
      <attribute>mallet</attribute>
      <attribute>construction</attribute>
      <attribute>bludgeon</attribute>
