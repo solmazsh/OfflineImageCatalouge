@@ -15,5 +15,16 @@
     <attribute>fruit</attribute>
     <attribute>red</attribute>
   </filename>
+    <filename uid="17" filename="CellPhoneCarCharger.jpg" name="012">
+    <attribute>cell phone charger</attribute>
+    <attribute>phone</attribute>
+    <attribute>black</attribute>
+  </filename>
+    <filename uid="18" filename="pliers.jpg" name="013">
+    <attribute>needle-nose pliers</attribute>
+    <attribute>tool</attribute>
+    <attribute>yellow</attribute>
+  </filename>
+  
 </root>
 
