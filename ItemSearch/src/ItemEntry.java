@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 public class ItemEntry extends JFrame implements ActionListener {
 
@@ -48,25 +51,49 @@ public class ItemEntry extends JFrame implements ActionListener {
 
 	// labels
 	JLabel nameLabel = new JLabel("Name: ");
+	JLabel catalogueIdLabel = new JLabel("Catalog Id:");
 	JLabel tagLabel = new JLabel("Tags: ");
 	JLabel pictureLabel = new JLabel("Picture: ");
 
 	// text fields
 	JTextField nameField = new JTextField(47);
+	JTextField catalogueIdField = new JTextField(47);
 	JTextField tagField = new JTextField(47);
 	JTextField pictureField = new JTextField(40);
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws JDOMException, IOException {
 		new ItemEntry();
+		// String[] strings = new String[2];
+		// strings[0] = "hello";
+		// strings[1] = "world";
+		// File file = new File("../sample.xml");
+		// writeItem("testID", strings, "fakecategoryid", file);
 	}
 
-	private static void writeItem(String uId, String[] tags, File xmlFile) throws JDOMException, IOException {
+	private static void writeItem(String uId, String[] tags,
+			String catalogueId, File xmlFile) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Document document = (Document) builder.build(xmlFile);
 		Element rootNode = document.getRootElement();
 		System.out.println(rootNode.getName());
+		Element fileName = new Element("filename");
+		fileName.setAttribute("uid", uId);
+		fileName.setAttribute("filename", "./" + uId + ".jpg");
+		fileName.setAttribute("name", catalogueId);
+		for (int i = 0; i < tags.length; i++) {
+			Element attribute = new Element("attribute");
+			attribute.setText(tags[i]);
+			fileName.addContent(attribute);
+		}
+		rootNode.addContent(fileName);
+		XMLOutputter xmlOutput = new XMLOutputter();
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		xmlOutput.output(document, new FileWriter(xmlFile));
+
+		System.out.println("File updated!");
+
 	}
-	
+
 	ItemEntry() {
 
 		this.add(panel);
@@ -90,6 +117,8 @@ public class ItemEntry extends JFrame implements ActionListener {
 		// add components
 		panel.add(nameLabel);
 		panel.add(nameField);
+		panel.add(catalogueIdLabel);
+		panel.add(catalogueIdField);
 		panel.add(tagLabel);
 		panel.add(tagField);
 		panel.add(pictureLabel);
@@ -107,12 +136,13 @@ public class ItemEntry extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	private void parseTags() {
+	String[] parseTags() {
 		String tagText = tagField.getText();
 		String tags[] = tagText.split(",");
 		for (int i = 0; i < tags.length; i++) {
 			System.out.println(tags[i]);
 		}
+		return tags;
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -147,9 +177,15 @@ public class ItemEntry extends JFrame implements ActionListener {
 					pictureField.setText(null);
 				}
 			} else if (button.getName() == "submit") {
-				parseTags();
+				String tags[] = parseTags();
 				if (picLoaded && fileLoaded) {
-
+					try {
+						System.out.println("Writing fiel!!\n");
+						writeItem(nameField.getText(), tags, "asdf",
+								xmlFile);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, null, "Error",
 							JOptionPane.ERROR_MESSAGE);
