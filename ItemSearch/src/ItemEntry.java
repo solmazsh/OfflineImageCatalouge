@@ -2,6 +2,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -13,6 +14,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 
 public class ItemEntry extends JFrame implements ActionListener {
 
@@ -54,6 +60,13 @@ public class ItemEntry extends JFrame implements ActionListener {
 		new ItemEntry();
 	}
 
+	private static void writeItem(String uId, String[] tags, File xmlFile) throws JDOMException, IOException {
+		SAXBuilder builder = new SAXBuilder();
+		Document document = (Document) builder.build(xmlFile);
+		Element rootNode = document.getRootElement();
+		System.out.println(rootNode.getName());
+	}
+	
 	ItemEntry() {
 
 		this.add(panel);
