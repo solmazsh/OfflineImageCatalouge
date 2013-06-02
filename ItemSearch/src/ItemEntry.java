@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -166,6 +167,10 @@ public class ItemEntry extends JFrame implements ActionListener {
 			JButton button = (JButton) event.getSource();
 			if (button.getName() == "browse") {
 				JFileChooser fileChooser = new JFileChooser();
+				 FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					        "JPG & GIF Images", "jpg", "gif");
+				 fileChooser.setFileFilter(filter);
+
 				int returnVal = fileChooser.showOpenDialog(this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					pictureFile = fileChooser.getSelectedFile();
@@ -180,6 +185,9 @@ public class ItemEntry extends JFrame implements ActionListener {
 				String tags[] = parseTags();
 				if (picLoaded && fileLoaded) {
 					try {
+						String baseImgDir = ".\\img\\";
+						File tmpFile = new File(baseImgDir+"test.jpg");
+						pictureFile.renameTo(tmpFile);
 						System.out.println("Writing fiel!!\n");
 						writeItem(nameField.getText(), tags, "asdf",
 								xmlFile);
