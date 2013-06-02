@@ -150,6 +150,30 @@ public class ItemEntry extends JFrame implements ActionListener {
 		}
 		return tags;
 	}
+	
+	public String nextUID()
+	{
+		Integer currentNum = -1;
+		try
+		{
+			String seqNum;
+			BufferedReader seq = new BufferedReader(new FileReader(".\\settings\\sequence"));
+			seqNum = seq.readLine();
+			seq.close();
+			
+			if (seqNum != null)
+			{
+				currentNum = Integer.parseInt(seqNum);
+				FileWriter seqOut = new FileWriter(".\\settings\\sequence");
+				seqOut.write(String.valueOf(currentNum+1));
+				seqOut.close();
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return currentNum.toString();
+	}
 
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() instanceof JMenuItem) {
@@ -192,10 +216,11 @@ public class ItemEntry extends JFrame implements ActionListener {
 					try {
 						String baseImgDir = xmlFile.getParentFile()+"/img/";
 						String[] extension = pictureFile.getName().split("\\.");
-						File tmpFile = new File(baseImgDir+nameField.getText()+"."+extension[extension.length-1]);
+						String uid = nextUID();
+						File tmpFile = new File(uid+"."+extension[extension.length-1]);
 						pictureFile.renameTo(tmpFile);
-						System.out.println("Writing fiel!!\n");
-						writeItem(nameField.getText(), tags, catalogueIdField.getText(),
+						System.out.println("Writing file!!\n");
+						writeItem(uid, tags, catalogueIdField.getText(),
 								xmlFile);
 					} catch (Exception e) {
 						e.printStackTrace();
