@@ -190,7 +190,7 @@ public class ItemEntry extends JFrame implements ActionListener {
 				String tags[] = parseTags();
 				if (picLoaded && fileLoaded) {
 					try {
-						String baseImgDir = "./img/";
+						String baseImgDir = xmlFile.getParentFile()+"/img/";
 						String[] extension = pictureFile.getName().split("\\.");
 						File tmpFile = new File(baseImgDir+nameField.getText()+"."+extension[extension.length-1]);
 						pictureFile.renameTo(tmpFile);
